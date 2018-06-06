@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    android:orientation="vertical"
+    >
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/txt_content"
+        android:textColor="#000000"
+        android:text="我的状态"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/div_white" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/heart"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="心率"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/xinlv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="2018/4/28 15:19"
+                android:textColor="#9f9d9d"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+
+            >
+
+            <EditText
+                android:id="@+id/heart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="40dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="77"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="次/分"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/div_white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/weight"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="体重"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/tizhong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="2018/4/22 11:19"
+                android:textColor="#9f9d9d"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+
+            >
+
+            <EditText
+                android:id="@+id/weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="40dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="64"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="公斤"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/div_white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bloodpressure"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="血压"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/xueya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="2018/4/22 11:10"
+                android:textColor="#9f9d9d"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+
+            >
+
+            <EditText
+                android:id="@+id/bpress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="115/73"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="mmhg"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/div_white" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/tiwen"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="体温"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/tiwen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="2018/4/22 11:10"
+                android:textColor="#9f9d9d"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+
+            >
+
+            <EditText
+                android:id="@+id/temp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="36.5"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="℃"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/div_white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/xuezhi"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="血脂"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/xuezhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="2018/4/22 11:10"
+                android:textColor="#9f9d9d"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+
+            >
+
+            <EditText
+                android:id="@+id/fat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="3.15"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:paddingRight="10dp"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="mmol/L"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/div_white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:height="80dp"
+        android:id="@+id/tv_result"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/fenxi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="分析建议"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:textSize="25dp"
+            android:background="#ff3187"
+            />
+
+        <Button
+            android:id="@+id/tts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="语音播报"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:textSize="25dp"
+            android:background="#ff3187"
+            />
+
+    </LinearLayout>
+</LinearLayout>

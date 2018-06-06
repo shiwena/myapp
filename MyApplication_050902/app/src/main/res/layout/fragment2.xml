@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/txt_content"
+        android:textColor="#ffffff"
+        android:text="实时监测"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@drawable/redbg"
+        />
+
+    <Button
+        android:id="@+id/heart1"
+        android:layout_width="match_parent"
+        android:layout_height="209dp"
+        android:text="0"
+        android:gravity="center_horizontal"
+        android:paddingTop="55dp"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:background="@drawable/shishibg101"
+        android:onClick="onClick"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="209dp"
+        android:background="@drawable/shishibg111"
+
+        android:text="140/90"
+        android:gravity="center_horizontal"
+        android:paddingTop="65dp"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:text=""
+        android:background="@drawable/redbg"/>
+</LinearLayout>
