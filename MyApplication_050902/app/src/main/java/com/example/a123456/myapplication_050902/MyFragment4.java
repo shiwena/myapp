@@ -82,7 +82,7 @@ public class MyFragment4 extends Fragment {
         tv_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),About.class);
+                Intent intent = new Intent(getActivity(),F4_about.class);
                 startActivity(intent);
             }
         });
