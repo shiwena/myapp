@@ -2,37 +2,24 @@ package com.example.a123456.myapplication_050902;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.math.BigDecimal;
 
-public class CleanMessageUtil {
+public class DataCleanManager {
 
-
-    /**
-     * @param context
-     * @return
-     * @throws Exception
-     *             获取当前缓存
-     */
     public static String getTotalCacheSize(Context context) throws Exception {
         long cacheSize = getFolderSize(context.getCacheDir());
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             cacheSize += getFolderSize(context.getExternalCacheDir());
         }
         return getFormatSize(cacheSize);
     }
 
-    /**
-     * @param context
-     *            删除缓存
-     */
+
     public static void clearAllCache(Context context) {
         deleteDir(context.getCacheDir());
-        if (Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED)) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteDir(context.getExternalCacheDir());
         }
     }
@@ -40,56 +27,31 @@ public class CleanMessageUtil {
     private static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
-            int size = 0;
-            if (children != null) {
-                size = children.length;
-                for (int i = 0; i < size; i++) {
-                    boolean success = deleteDir(new File(dir, children[i]));
-                    if (!success) {
-                        return false;
-                    }
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
                 }
             }
-
         }
-        Log.i("111","-------------");
-        Log.i("111","deleteDir");
-        Log.i("111","-------------");
-
-        if (dir == null) {
-            return true;
-        } else {
-
-            return dir.delete();
-        }
+        return dir.delete();
     }
 
     // 获取文件
-    // Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/
-    // 目录，一般放一些长时间保存的数据
-    // Context.getExternalCacheDir() -->
-    // SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
+    //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
+    //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
     public static long getFolderSize(File file) throws Exception {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
-            int size2 = 0;
-            if (fileList != null) {
-                size2 = fileList.length;
-                for (int i = 0; i < size2; i++) {
-                    // 如果下面还有文件
-                    if (fileList[i].isDirectory()) {
-                        size = size + getFolderSize(fileList[i]);
-                    } else {
-                        size = size + fileList[i].length();
-                    }
+            for (int i = 0; i < fileList.length; i++) {
+                // 如果下面还有文件
+                if (fileList[i].isDirectory()) {
+                    size = size + getFolderSize(fileList[i]);
+                } else {
+                    size = size + fileList[i].length();
                 }
             }
-
-            Log.i("111","-------------");
-            Log.i("111","getfolderSize");
-            Log.i("111","-------------");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,14 +60,14 @@ public class CleanMessageUtil {
 
     /**
      * 格式化单位
-     * 计算缓存的大小
+     *
      * @param size
      * @return
      */
     public static String getFormatSize(double size) {
         double kiloByte = size / 1024;
         if (kiloByte < 1) {
-            // return size + "Byte";
+//            return size + "Byte";
             return "0K";
         }
 

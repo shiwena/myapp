@@ -22,7 +22,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".F4_about"></activity>
+        <activity android:name=".F4_about" />
+        <activity android:name=".F4_suggestion"></activity>
     </application>
 
 </manifest>
