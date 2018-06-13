@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,9 @@ public class MyFragment4 extends Fragment {
 
     TextView tv_clearcache;
     TextView tv_about;
+    TextView bt_logout;
+    TextView tv_suggestion;
+    TextView tv_version;
 
 
     @Override
@@ -45,10 +50,8 @@ public class MyFragment4 extends Fragment {
 
                 //    通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                //    设置Title的图标
-                builder.setIcon(R.mipmap.ic_launcher);
 
-                //    设置Content来显示一个信息
+                //    设置信息
                 builder.setMessage("确定清除缓存吗？");
                 //    设置一个PositiveButton
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
@@ -56,9 +59,21 @@ public class MyFragment4 extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        Toast.makeText(getContext(), "positive", Toast.LENGTH_SHORT).show();
-//                        cleanMessageUtil.clearAllCache(getContext());
-                        CleanMessageUtil.clearAllCache(getContext());
+                        //Toast.makeText(getContext(), "positive", Toast.LENGTH_SHORT).show();
+
+
+                        //输出缓存大小
+                        try {
+                            Log.i("111","缓存："+DataCleanManager.getTotalCacheSize(getContext()));
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+
+                        //     清缓存
+                        //     DataCleanManager.clearAllCache(getContext());
+
+
                     }
                 });
                 //    设置一个NegativeButton
@@ -78,6 +93,10 @@ public class MyFragment4 extends Fragment {
             }
         });
 
+        /**
+         * 关于
+         */
+
         tv_about = (TextView) view.findViewById(R.id.f4_about);
         tv_about.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,17 +107,98 @@ public class MyFragment4 extends Fragment {
         });
 
 
+        /**
+         * 意见反馈
+         */
+        tv_suggestion = (TextView) view.findViewById(R.id.bt_suggestion);
+        tv_suggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),F4_suggestion.class);
+                startActivity(intent);
+            }
+        });
+
+
+        /**
+         * 版本检查
+         */
+
+        tv_version = (TextView)view.findViewById(R.id.tv_version);
+        tv_version.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder((getContext()));
+
+                builder.setTitle("");
+                builder.setMessage("已是最新版本");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //do nothing
+                    }
+                });
+                builder.show();
+
+            }
+        });
+
+
+        /**
+         * 退出登录
+         */
+        bt_logout = (TextView) view.findViewById(R.id.bt_logout);
+        bt_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final Dialog mLogoutDialog = new Dialog(getContext(), R.style.my_dialog);
+                LinearLayout root = (LinearLayout) LayoutInflater.from(getContext()).inflate(
+                        R.layout.dialog_logout, null);
+
+                mLogoutDialog.setContentView(root);
+                Window dialogWindow = mLogoutDialog.getWindow();
+                dialogWindow.setGravity(Gravity.BOTTOM);
+                //dialogWindow.setWindowAnimations(R.style.dialogstyle); // 添加动画
+                WindowManager.LayoutParams lp = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+                lp.x = 0; // 新位置X坐标
+                lp.y = -20; // 新位置Y坐标
+                lp.width = (int) getResources().getDisplayMetrics().widthPixels; // 宽度
+
+                root.measure(0, 0);
+                lp.height = root.getMeasuredHeight();
+                lp.alpha = 9f; // 透明度
+                dialogWindow.setAttributes(lp);
+                mLogoutDialog.show();
+
+                root.findViewById(R.id.btn_comfirm).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(),LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                root.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mLogoutDialog.dismiss();
+                    }
+                });
+
+
+
+
+            }
+        });
+
+
 
 
 
 
         return view;
     }
-
-
-
-
-
 
 
 
