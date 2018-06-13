@@ -65,7 +65,7 @@ public class MyFragment4 extends Fragment {
                         //输出缓存大小
                         try {
                             cache = DataCleanManager.getTotalCacheSize(getContext());
-                            Toast.makeText(getContext(),cache,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),""+cache,Toast.LENGTH_LONG).show();
                             Log.i("111","缓存："+DataCleanManager.getTotalCacheSize(getContext()));
                         }catch (Exception e){
                             e.printStackTrace();
