@@ -1,5 +1,6 @@
 package com.example.a123456.myapplication_050902;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,13 +12,15 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private MyFragment2 myFragment2 = null;
     private MyFragment3 myFragment3 = null;
     private MyFragment4 myFragment4 = null;
+    private String User_id;
 
-    public MyFragmentPagerAdapter(FragmentManager fm) {
+    public MyFragmentPagerAdapter(FragmentManager fm,String Userid) {
         super(fm);
         myFragment1 = new MyFragment1();
         myFragment2 = new MyFragment2();
         myFragment3 = new MyFragment3();
         myFragment4 = new MyFragment4();
+        User_id=Userid;
     }
 
     @Override
@@ -26,6 +29,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case MainActivity.PAGE_ONE:
                 fragment = myFragment1;
+                Bundle bundle = new Bundle();
+                bundle.putString("id",User_id);
+                fragment.setArguments(bundle);
                 break;
             case MainActivity.PAGE_TWO:
                 fragment = myFragment2;

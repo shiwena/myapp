@@ -92,6 +92,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.makeText(LoginActivity.this,"登陆成功！",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent();
                                     intent.setClass(LoginActivity.this, MainActivity.class);
+                                    //组员LGY需要Userid的传值。
+                                    intent.putExtra("User_id",Userid);
                                     startActivity(intent);
 
 

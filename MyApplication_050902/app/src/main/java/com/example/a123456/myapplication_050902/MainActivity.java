@@ -1,8 +1,10 @@
 package com.example.a123456.myapplication_050902;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -16,6 +18,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private RadioButton rb_setting;
 
     private ViewPager vpager;
+    //组员LGY添加的接收Userid
+    private String User_id=null;
+
 
 
     public static final int PAGE_ONE = 0;
@@ -29,9 +34,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        //接收用户的id
+        Intent i = getIntent();
+        User_id=i.getStringExtra("User_id");
+        Log.i("MainactivityLGY","————当前用户为————————："+User_id);
+
+
+        mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(),User_id);
         bindViews();
         rb_channel.setChecked(true);
+
 
     }
 
