@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_grey2"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_greenhat"
+        android:orientation="vertical">
+
+        <TextView
+
+            android:id="@+id/heart_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="心率历史数据"
+            android:textColor="@color/bg_white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <TextView
+
+        android:id="@+id/heart_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="   数据列表"
+        android:textColor="@color/bg_black"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="left"
+            android:text="测量时间"
+            android:textColor="@color/bg_black"
+            android:textSize="15sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="心率"
+            android:textColor="@color/bg_black"
+            android:textSize="15sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="结果"
+            android:textColor="@color/bg_black"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:orientation="horizontal">
+
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8" />
+
+            <ListView
+                android:id="@+id/list_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2" />
+
+            <ListView
+                android:id="@+id/list_view3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2" />
+        </LinearLayout>
+
+</LinearLayout>
