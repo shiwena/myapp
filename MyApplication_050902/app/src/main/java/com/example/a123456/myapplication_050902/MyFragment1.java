@@ -317,7 +317,7 @@ public class MyFragment1 extends Fragment {
                 }
                 if(health==true)
                 {
-                    res+="您的情况基本正常！！";
+                    res+="情况基本正常！！";
                 }
                 res+=xinlvjianyi[heart1];
                 res+=BMIjianyi[BMI1];

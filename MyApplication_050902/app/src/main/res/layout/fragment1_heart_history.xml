@@ -46,6 +46,7 @@
             android:layout_weight="0.8"
             android:gravity="left"
             android:text="测量时间"
+            android:layout_marginLeft="20dp"
             android:textColor="@color/bg_black"
             android:textSize="15sp" />
 
