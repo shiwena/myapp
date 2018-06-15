@@ -22,7 +22,11 @@
             android:textSize="15sp" />
 
     </LinearLayout>
-
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/line_chart"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:background="#ffffff"/>
     <TextView
 
         android:id="@+id/heart_text2"
