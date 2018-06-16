@@ -100,10 +100,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/weight_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/weight" />
+            android:background="@drawable/weight"
+            android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -172,10 +174,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/bloodpress_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/bloodpressure" />
+            android:background="@drawable/bloodpressure"
+            android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -243,10 +247,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/temp_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/tiwen" />
+            android:background="@drawable/tiwen"
+            android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -314,10 +320,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/bloodfat_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/xuezhi" />
+            android:background="@drawable/xuezhi"
+            android:clickable="true"/>
 
         <LinearLayout
             android:layout_width="0dp"

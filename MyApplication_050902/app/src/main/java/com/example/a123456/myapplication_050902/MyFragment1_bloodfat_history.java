@@ -13,10 +13,12 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,61 +39,60 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class MyFragment1_heart_history extends AppCompatActivity {
-    private Queue<String> Userheart = new LinkedList<String>();//用于存储数据库的数据，然后作为历史记录的数据
+public class MyFragment1_bloodfat_history extends AppCompatActivity {
+    private Queue<String> Userbloodfat = new LinkedList<String>();//用于存储数据库的数据，然后作为历史记录的数据
     private Queue<String> Usertime = new LinkedList<String>();
-    private Queue<String> Userheart2 = new LinkedList<String>();//作为折线图的数据。
+    private Queue<String> Userbloodfat2 = new LinkedList<String>();//作为折线图的数据。
     private Queue<String> Usertime2 = new LinkedList<String>();
     //为什么设两对相同的呢？因为组员LGY想把历史数据和折线图的处理分开写。
-    private String Uheart="";//这一对用作中间数据。
+
+    //中间数据。
+    private String Ubloodfat="";
     private String Utime="";
+
 
     private String jieguo;//当然是存分析结果的啦
     private String User_id;
-    private int xl=0;//心率的int型
+    private Double bloodfat=0.0;//血脂的Double型
     private SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//时间格式
     private SimpleDateFormat t2 = new SimpleDateFormat("yyyy-MM-dd");
+    private DecimalFormat df = new DecimalFormat("#.0");//使Double类型的数据保留一位小数
     private Date date2;
     private Date date3;
 
     //折线图测试
     private LineChartView lineChart;
-    //测试数据
-    //String[] date1 = {"5-23", "5-22", "6-22", "5-23", "5-22", "2-22", "5-22", "4-22", "9-22", "10-22", "11-22", "12-22", "1-22", "6-22", "5-23", "5-22", "2-22", "5-22", "4-22", "9-22", "10-22", "11-22", "12-22", "4-22", "9-22", "10-22", "11-22", "zxc"};//X轴的标注
-    //int[] score = {74, 22, 18, 79, 20, 74, 20, 74, 42, 90, 74, 42, 90, 50, 42, 90, 33, 10, 74, 22, 18, 79, 20, 74, 22, 18, 79, 120};//图表的数据
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment1_heart_history);
+        setContentView(R.layout.fragment1_bloodfat_history);
 
         Intent i = getIntent();
         User_id = i.getStringExtra("User_id");
-        Log.i("heart_history", "————当前用户为————————：" + User_id);
 
 
         //从数据库中获取历史数据。
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("hearthistory", "666");
+                Log.i("weighthistory", "666");
                 Looper.prepare();
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
-                    java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8", "root", "SWsw1997");
+                    Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8", "root", "SWsw1997");
                     java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String time = sdf.format(date);
-                    String sql = "select * from userheart where Userid ='" + User_id + "'order by Testtime desc;";
+                    String sql = "select * from userbloodfat where Userid ='" + User_id + "'order by Testtime desc;";
 
                     Statement st = (Statement) cn.createStatement();
                     ResultSet rs = st.executeQuery(sql);
                     while (rs.next()) {
-                        Uheart=rs.getString("Userheart");
-                        Userheart.offer(Uheart);
-                        Userheart2.offer(Uheart);
+                        Ubloodfat=rs.getString("Userbfat");//接收血脂的数据
+                        Userbloodfat.offer(Ubloodfat);
+                        Userbloodfat2.offer(Ubloodfat);
                         Utime=rs.getString("Testtime");
                         try {
                             date2=t.parse(Utime);
@@ -102,12 +103,9 @@ public class MyFragment1_heart_history extends AppCompatActivity {
 
                         Usertime.offer(t.format(date2));//将String变为date,又将date变回String并不是无意义的，因为需要规范时间格式。
                         Usertime2.offer(t2.format(date3));
-                        //Log.i("heart1111111",Userheart.poll()+Usertime.poll());
-                        //Log.i("heart2",Userheart2.poll()+"\t"+Usertime2.poll());
 
                     }
-//
-                    //Log.i("heart4444444",Userheart.poll()+Usertime.poll());
+
                     cn.close();
                     st.close();
                     rs.close();
@@ -119,12 +117,11 @@ public class MyFragment1_heart_history extends AppCompatActivity {
                 Looper.loop();
             }
         }).start();
-        //Log.i("heart33333333",Userheart.poll()+Usertime.poll());
         long delay = 1000;
         new Handler().postDelayed(new Runnable() {//这里也要写线程，并且延迟时间要长，不然会抢在数据库操作之前执行。
             public void run() {
                 //折线图的调用
-                lineChart = (LineChartView) findViewById(R.id.line_heart_chart);
+                lineChart = (LineChartView) findViewById(R.id.line_bloodfat_chart);
                 getAxisXLables();//获取x轴的标注
                 getAxisPoints();//获取坐标点
                 initLineChart();//初始化
@@ -140,34 +137,32 @@ public class MyFragment1_heart_history extends AppCompatActivity {
                     Map<String, Object> showitem = new HashMap<String, Object>();
                     Map<String, Object> showitem2 = new HashMap<String, Object>();
                     Map<String, Object> showitem3 = new HashMap<String, Object>();
-                    xl=Integer.parseInt(Userheart.peek());
+                    bloodfat=Double.parseDouble(Userbloodfat.poll());
 
+                    jieguo="血脂正常";
 
-                    jieguo="心率正常";
-                    if (xl > 100&&xl<160)//心率过快
-                    {
-                        jieguo="心率较快";
-                    }else if(xl>=160){
-                        jieguo="心率过快";
+                    if(bloodfat<2.9){//血脂过低
+                        jieguo="血脂过低";
                     }
-                    else if (xl < 60)//心率过缓
+                    else if (bloodfat>5.17)//血脂过高
                     {
-                        jieguo="心率过缓";
+                        jieguo="血脂过高";
                     }
+
                     showitem.put("shijian", Usertime.poll());
-                    showitem2.put("xinlv", Userheart.poll());
+                    showitem2.put("xueya", df.format(bloodfat));//体温
                     showitem3.put("jieguo", jieguo);
                     listitem.add(showitem);
                     listitem2.add(showitem2);
                     listitem3.add(showitem3);
                 }
-                //创建一个simpleAdapter
+                //创建一个simpleAdapter,这里是复用了心率那边的xml,无须在意
                 SimpleAdapter myAdapter = new SimpleAdapter(getApplicationContext(), listitem, R.layout.fragment1_heart_adapter, new String[]{"shijian"}, new int[]{R.id.heart_time});
-                SimpleAdapter myAdapter2 = new SimpleAdapter(getApplicationContext(), listitem2, R.layout.fragment1_heart_adapter2, new String[]{"xinlv"}, new int[]{R.id.heart_heart});
+                SimpleAdapter myAdapter2 = new SimpleAdapter(getApplicationContext(), listitem2, R.layout.fragment1_heart_adapter2, new String[]{"xueya"}, new int[]{R.id.heart_heart});
                 SimpleAdapter myAdapter3 = new SimpleAdapter(getApplicationContext(), listitem3, R.layout.fragment1_heart_adapter3, new String[]{"jieguo"}, new int[]{R.id.heart_result});
-                ListView listView = (ListView) findViewById(R.id.list_heart_view);
-                ListView listView2 = (ListView) findViewById(R.id.list_heart_view2);
-                ListView listView3 = (ListView) findViewById(R.id.list_heart_view3);
+                ListView listView = (ListView) findViewById(R.id.list_bloodfat_view);
+                ListView listView2 = (ListView) findViewById(R.id.list_bloodfat_view2);
+                ListView listView3 = (ListView) findViewById(R.id.list_bloodfat_view3);
                 listView.setAdapter(myAdapter);
                 listView2.setAdapter(myAdapter2);
                 listView3.setAdapter(myAdapter3);
@@ -177,7 +172,8 @@ public class MyFragment1_heart_history extends AppCompatActivity {
                 listView2.setFastScrollEnabled(false);
                 listView3.setVerticalScrollBarEnabled(false);
                 listView3.setFastScrollEnabled(false);
-                setListViewOnTouchAndScrollListener(listView,listView2,listView3);
+
+                setListViewOnTouchAndScrollListener(listView,listView2,listView3);//这个方法将每个xml的内容分别放在每个listview上。
             }
         }, delay);
     }
@@ -220,9 +216,9 @@ public class MyFragment1_heart_history extends AppCompatActivity {
                     int top1 = listView.getChildAt(0).getTop();
 
                     //if(!(top1 - 2 < top &&top < top1 + 2)){
-                        listView.setSelectionFromTop(firstVisibleItem, top);
-                        listView2.setSelectionFromTop(firstVisibleItem, top);
-                        listView3.setSelectionFromTop(firstVisibleItem, top);
+                    listView.setSelectionFromTop(firstVisibleItem, top);
+                    listView2.setSelectionFromTop(firstVisibleItem, top);
+                    listView3.setSelectionFromTop(firstVisibleItem, top);
                     //}
 
                 }
@@ -315,8 +311,8 @@ public class MyFragment1_heart_history extends AppCompatActivity {
         line.setCubic(false);//曲线是否平滑
 //	    line.setStrokeWidth(3);//线条的粗细，默认是3
         line.setFilled(false);//是否填充曲线的面积
-        line.setHasLabels(true);//曲线的数据坐标是否加上备注
-//		line.setHasLabelsOnlyForSelected(true);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
+        line.setHasLabels(false);//曲线的数据坐标是否加上备注
+        line.setHasLabelsOnlyForSelected(false);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
         line.setHasLines(true);//是否用直线显示。如果为false 则没有曲线只有点显示
         line.setHasPoints(true);//是否显示圆点 如果为false 则没有原点只有点显示
         lines.add(line);
@@ -339,7 +335,7 @@ public class MyFragment1_heart_history extends AppCompatActivity {
 
 
         Axis axisY = new Axis();  //Y轴
-        axisY.setName("心率(单位:次/分钟)");//y轴标注
+        axisY.setName("血脂(单位:mmol/L)");//y轴标注
         axisY.setTextColor(Color.parseColor("#666666"));
         axisY.setTextSize(11);//设置字体大小
         data.setAxisYLeft(axisY);  //Y轴设置在左边
@@ -347,7 +343,7 @@ public class MyFragment1_heart_history extends AppCompatActivity {
         //设置行为属性，支持缩放、滑动以及平移
         lineChart.setInteractive(true);
         lineChart.setZoomType(ZoomType.HORIZONTAL);  //缩放类型，水平
-        lineChart.setMaxZoom((float) 3);//缩放比例
+        lineChart.setMaxZoom((float) 5);//缩放比例,比例越大，密集程度就越低
         lineChart.setLineChartData(data);
         lineChart.setVisibility(View.VISIBLE);
         Viewport v = new Viewport(lineChart.getMaximumViewport());
@@ -362,14 +358,9 @@ public class MyFragment1_heart_history extends AppCompatActivity {
     private void getAxisXLables() {
         int i = 0;
         while (Usertime2.peek() != null){
-            //Log.i("zhexiantupoint1",Usertime2.poll());
             mAxisXValues.add(new AxisValue(i).setLabel(Usertime2.poll()));
             i++;
         }
-//        for (int i = 0; i < date1.length; i++) {
-//            mAxisXValues.add(new AxisValue(i).setLabel(Usertime2.poll()));
-//            //mAxisXValues.add(new AxisValue(i).setLabel(date1[i]));
-//        }
 
     }
 
@@ -378,13 +369,10 @@ public class MyFragment1_heart_history extends AppCompatActivity {
      */
     private void getAxisPoints() {
         int i = 0;
-        while (Userheart2.peek() != null){
-            //Log.i("zhexiantupoint2",Userheart2.poll());
-            mPointValues.add(new PointValue(i, Float.parseFloat(Userheart2.poll())));
+        while (Userbloodfat2.peek() != null){
+            mPointValues.add(new PointValue(i,Float.parseFloat(Userbloodfat2.poll())));
             i++;
         }
-//        for (int i = 0; i < score.length; i++) {
-//            mPointValues.add(new PointValue(i, score[i]));
-//        }
+
     }
 }

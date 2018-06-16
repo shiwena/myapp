@@ -12,24 +12,24 @@
         android:orientation="vertical">
 
         <TextView
-
-            android:id="@+id/heart_text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="心率历史数据"
+            android:text="血压历史数据"
             android:textColor="@color/bg_white"
             android:textSize="15sp" />
 
     </LinearLayout>
-    <lecho.lib.hellocharts.view.LineChartView
-        android:id="@+id/line_heart_chart"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:background="#ffffff"/>
-    <TextView
 
-        android:id="@+id/heart_text2"
+
+
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/line_bloodpress_chart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#ffffff" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -47,10 +47,10 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_weight="0.8"
             android:gravity="left"
             android:text="测量时间"
-            android:layout_marginLeft="20dp"
             android:textColor="@color/bg_black"
             android:textSize="15sp" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="心率"
+            android:text="收缩/舒张压"
             android:textColor="@color/bg_black"
             android:textSize="15sp" />
 
@@ -76,31 +76,30 @@
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <ListView
+            android:id="@+id/list_bloodpress_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/bg_white"
-            android:orientation="horizontal">
+            android:layout_weight="0.8" />
 
+        <ListView
+            android:id="@+id/list_bloodpress_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2" />
 
-            <ListView
-                android:id="@+id/list_heart_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8" />
-
-            <ListView
-                android:id="@+id/list_heart_view2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2" />
-
-            <ListView
-                android:id="@+id/list_heart_view3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2" />
-        </LinearLayout>
+        <ListView
+            android:id="@+id/list_bloodpress_view3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2" />
+    </LinearLayout>
 
 </LinearLayout>

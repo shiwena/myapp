@@ -20,6 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MyFragment1_heart_history"/>
+        <activity android:name=".MyFragment1_weight_history"/>
+        <activity android:name=".MyFragment1_bloodpress_history"/>
+        <activity android:name=".MyFragment1_temperature_history"/>
+        <activity android:name=".MyFragment1_bloodfat_history"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />

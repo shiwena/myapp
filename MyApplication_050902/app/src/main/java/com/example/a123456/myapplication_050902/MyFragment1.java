@@ -34,6 +34,10 @@ public class MyFragment1 extends Fragment {
     Button fenxi;
     Button tts;
     ImageView heartbutton;
+    ImageView weightbutton;
+    ImageView bloodpressbutton;
+    ImageView temperaturebutton;
+    ImageView bloodfatbutton;
     TextView tv_result;
     TextView Text_xinlv;
     TextView Text_tizhong;
@@ -97,6 +101,10 @@ public class MyFragment1 extends Fragment {
         fenxi = (Button) view.findViewById(R.id.fenxi);
         tts = (Button) view.findViewById(R.id.tts);
         heartbutton=(ImageView) view.findViewById(R.id.heart_button);
+        weightbutton=(ImageView)view.findViewById(R.id.weight_button);
+        bloodpressbutton=(ImageView)view.findViewById(R.id.bloodpress_button);
+        temperaturebutton=(ImageView)view.findViewById(R.id.temp_button);
+        bloodfatbutton=(ImageView)view.findViewById(R.id.bloodfat_button);
         txt_content.setText("我的状态");
         tv_result=(TextView)view.findViewById(R.id.tv_result);
         Text_xinlv=(TextView)view.findViewById(R.id.xinlv);
@@ -285,7 +293,7 @@ public class MyFragment1 extends Fragment {
                 }
                 if(!tiwen.equals(""))
                 {
-                    if(tw>=37.3&&tw<=38.0){//发烧
+                    if(tw>=37.3&&tw<=38.0){//低烧
                         temp1 = 1;
                         health=false;
                     }
@@ -294,7 +302,7 @@ public class MyFragment1 extends Fragment {
                         temp1 = 2;
                         health=false;
                     }
-                    else if(tw<36)//低烧
+                    else if(tw<36)//低温
                     {
                         temp1 = 3;
                         health=false;
@@ -395,6 +403,46 @@ public class MyFragment1 extends Fragment {
             public void onClick(View v) {
 
                 Intent intent1 = new Intent(getActivity().getApplicationContext(),MyFragment1_heart_history.class);
+                intent1.putExtra("User_id",Userid);
+                startActivity(intent1);
+
+            }
+        });
+        weightbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent1 = new Intent(getActivity().getApplicationContext(),MyFragment1_weight_history.class);
+                intent1.putExtra("User_id",Userid);
+                startActivity(intent1);
+
+            }
+        });
+        bloodpressbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent1 = new Intent(getActivity().getApplicationContext(),MyFragment1_bloodpress_history.class);
+                intent1.putExtra("User_id",Userid);
+                startActivity(intent1);
+
+            }
+        });
+        temperaturebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent1 = new Intent(getActivity().getApplicationContext(),MyFragment1_temperature_history.class);
+                intent1.putExtra("User_id",Userid);
+                startActivity(intent1);
+
+            }
+        });
+        bloodfatbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent1 = new Intent(getActivity().getApplicationContext(),MyFragment1_bloodfat_history.class);
                 intent1.putExtra("User_id",Userid);
                 startActivity(intent1);
 
