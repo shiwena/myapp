@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -47,13 +48,13 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
     //为什么设两对相同的呢？因为组员LGY想把历史数据和折线图的处理分开写。
 
     //中间数据。
-    private String Utemperature="";
-    private String Utime="";
+    private String Utemperature = "";
+    private String Utime = "";
 
 
     private String jieguo;//当然是存分析结果的啦
     private String User_id;
-    private Double temperature=0.0;//温度的Double型
+    private Double temperature = 0.0;//温度的Double型
     private SimpleDateFormat t = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//时间格式
     private SimpleDateFormat t2 = new SimpleDateFormat("yyyy-MM-dd");
     private DecimalFormat df = new DecimalFormat("#.0");//使Double类型的数据保留一位小数
@@ -90,13 +91,13 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
                     Statement st = (Statement) cn.createStatement();
                     ResultSet rs = st.executeQuery(sql);
                     while (rs.next()) {
-                        Utemperature=rs.getString("Usertemp");//接收数据
+                        Utemperature = rs.getString("Usertemp");//接收数据
                         Usertemperature.offer(Utemperature);
                         Usertemperature2.offer(Utemperature);
-                        Utime=rs.getString("Testtime");
+                        Utime = rs.getString("Testtime");
                         try {
-                            date2=t.parse(Utime);
-                            date3=t.parse(Utime);
+                            date2 = t.parse(Utime);
+                            date3 = t.parse(Utime);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -116,19 +117,26 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                myHandler.sendEmptyMessage(0x126);
                 Looper.loop();
             }
         }).start();
-        long delay = 1000;
-        new Handler().postDelayed(new Runnable() {//这里也要写线程，并且延迟时间要长，不然会抢在数据库操作之前执行。
-            public void run() {
+//        long delay = 1000;                         //这个就是LGY所说的旧方法了。
+//        new Handler().postDelayed(new Runnable() {//这里也要写线程，并且延迟时间要长，不然会抢在数据库操作之前执行。
+//            public void run() {
+//
+//            }
+//        }, delay);
+    }
+
+    final Handler myHandler = new Handler() {//这里更改掉了旧方法，使得handler里面的内容可以真正的实现“数据库读取完成后再开始更改UI”。
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x126) {
                 //折线图的调用
                 lineChart = (LineChartView) findViewById(R.id.line_temp_chart);
                 getAxisXLables();//获取x轴的标注
                 getAxisPoints();//获取坐标点
                 initLineChart();//初始化
-
-
 
 
                 List<Map<String, Object>> listitem = new ArrayList<Map<String, Object>>();
@@ -139,20 +147,18 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
                     Map<String, Object> showitem = new HashMap<String, Object>();
                     Map<String, Object> showitem2 = new HashMap<String, Object>();
                     Map<String, Object> showitem3 = new HashMap<String, Object>();
-                    temperature=Double.parseDouble(Usertemperature.poll());
+                    temperature = Double.parseDouble(Usertemperature.poll());
 
-                    jieguo="体温正常";
+                    jieguo = "体温正常";
 
-                    if(temperature>=37.3&&temperature<=38.0){//低烧
-                        jieguo="低烧";
-                    }
-                    else if(temperature>=38.1)//高烧
+                    if (temperature >= 37.3 && temperature <= 38.0) {//低烧
+                        jieguo = "低烧";
+                    } else if (temperature >= 38.1)//高烧
                     {
-                        jieguo="高烧";
-                    }
-                    else if(temperature<36)//低温
+                        jieguo = "高烧";
+                    } else if (temperature < 36)//低温
                     {
-                        jieguo="体温过低";
+                        jieguo = "体温过低";
                     }
 
                     showitem.put("shijian", Usertime.poll());
@@ -179,11 +185,12 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
                 listView3.setVerticalScrollBarEnabled(false);
                 listView3.setFastScrollEnabled(false);
 
-                setListViewOnTouchAndScrollListener(listView,listView2,listView3);//这个方法将每个xml的内容分别放在每个listview上。
+                setListViewOnTouchAndScrollListener(listView, listView2, listView3);//这个方法将每个xml的内容分别放在每个listview上。
             }
-        }, delay);
-    }
-    public void setListViewOnTouchAndScrollListener(final ListView listView,final ListView listView2,final ListView listView3){
+        }
+    };
+
+    public void setListViewOnTouchAndScrollListener(final ListView listView, final ListView listView2, final ListView listView3) {
 
 
         //设置listview2列表的scroll监听，用于滑动过程中左右不同步时校正
@@ -192,18 +199,18 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 //如果停止滑动
-                if(scrollState == 0 || scrollState == 1){
+                if (scrollState == 0 || scrollState == 1) {
                     //获得第一个子view
                     View subView = view.getChildAt(0);
 
-                    if(subView !=null){
+                    if (subView != null) {
                         final int top = subView.getTop();
                         final int top1 = listView.getChildAt(0).getTop();
                         final int top3 = listView3.getChildAt(0).getTop();
                         final int position = view.getFirstVisiblePosition();
 
                         //如果两个首个显示的子view高度不等
-                        if(top != top1&&top!=top3&&top1!=top3){
+                        if (top != top1 && top != top3 && top1 != top3) {
                             listView.setSelectionFromTop(position, top);
                             listView3.setSelectionFromTop(position, top);
                         }
@@ -215,7 +222,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
             public void onScroll(AbsListView view, final int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 View subView = view.getChildAt(0);
-                if(subView != null){
+                if (subView != null) {
                     final int top = subView.getTop();
 
 //      //如果三个首个显示的子view高度不等
@@ -236,18 +243,18 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if(scrollState == 0 || scrollState == 1){
+                if (scrollState == 0 || scrollState == 1) {
                     //获得第一个子view
                     View subView = view.getChildAt(0);
 
-                    if(subView !=null){
+                    if (subView != null) {
                         final int top = subView.getTop();
                         final int top2 = listView2.getChildAt(0).getTop();
-                        final int top3=listView3.getChildAt(0).getTop();
+                        final int top3 = listView3.getChildAt(0).getTop();
                         final int position = view.getFirstVisiblePosition();
 
                         //如果两个首个显示的子view高度不等
-                        if(top != top2&&top!=top3&&top2!=top3){
+                        if (top != top2 && top != top3 && top2 != top3) {
                             listView.setSelectionFromTop(position, top);
                             listView2.setSelectionFromTop(position, top);
                             listView3.setSelectionFromTop(position, top);
@@ -260,7 +267,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
             public void onScroll(AbsListView view, final int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 View subView = view.getChildAt(0);
-                if(subView != null){
+                if (subView != null) {
                     final int top = subView.getTop();
                     listView.setSelectionFromTop(firstVisibleItem, top);
                     listView2.setSelectionFromTop(firstVisibleItem, top);
@@ -273,11 +280,11 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if(scrollState == 0 || scrollState == 1){
+                if (scrollState == 0 || scrollState == 1) {
                     //获得第一个子view
                     View subView = view.getChildAt(0);
 
-                    if(subView !=null){
+                    if (subView != null) {
                         final int top = subView.getTop();
                         final int top1 = listView.getChildAt(0).getTop();
                         final int top2 = listView2.getChildAt(0).getTop();
@@ -285,7 +292,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
                         final int position = view.getFirstVisiblePosition();
 
                         //如果两个首个显示的子view高度不等
-                        if(top != top1&&top!=top2&&top1!=top2){
+                        if (top != top1 && top != top2 && top1 != top2) {
                             listView.setSelectionFromTop(position, top);
                             listView2.setSelectionFromTop(position, top);
                             listView3.setSelectionFromTop(position, top);
@@ -298,7 +305,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
             public void onScroll(AbsListView view, final int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 View subView = view.getChildAt(0);
-                if(subView != null){
+                if (subView != null) {
                     final int top = subView.getTop();
                     listView.setSelectionFromTop(firstVisibleItem, top);
                     listView2.setSelectionFromTop(firstVisibleItem, top);
@@ -307,6 +314,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
             }
         });
     }
+
     /**
      * 初始化LineChart的一些设置
      */
@@ -318,7 +326,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
 //	    line.setStrokeWidth(3);//线条的粗细，默认是3
         line.setFilled(false);//是否填充曲线的面积
         line.setHasLabels(false);//曲线的数据坐标是否加上备注
-		line.setHasLabelsOnlyForSelected(false);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
+        line.setHasLabelsOnlyForSelected(false);//点击数据坐标提示数据（设置了这个line.setHasLabels(true);就无效）
         line.setHasLines(true);//是否用直线显示。如果为false 则没有曲线只有点显示
         line.setHasPoints(true);//是否显示圆点 如果为false 则没有原点只有点显示
         lines.add(line);
@@ -363,7 +371,7 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
      */
     private void getAxisXLables() {
         int i = 0;
-        while (Usertime2.peek() != null){
+        while (Usertime2.peek() != null) {
             mAxisXValues.add(new AxisValue(i).setLabel(Usertime2.poll()));
             i++;
         }
@@ -375,8 +383,8 @@ public class MyFragment1_temperature_history extends AppCompatActivity {
      */
     private void getAxisPoints() {
         int i = 0;
-        while (Usertemperature2.peek() != null){
-            mPointValues.add(new PointValue(i,Float.parseFloat(Usertemperature2.poll())));
+        while (Usertemperature2.peek() != null) {
+            mPointValues.add(new PointValue(i, Float.parseFloat(Usertemperature2.poll())));
             i++;
         }
 
