@@ -13,6 +13,7 @@ public class DataCleanManager {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             cacheSize += getFolderSize(context.getExternalCacheDir());
         }
+
         return getFormatSize(cacheSize);
     }
 

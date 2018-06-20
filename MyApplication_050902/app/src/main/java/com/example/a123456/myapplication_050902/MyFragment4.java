@@ -24,19 +24,49 @@ import android.widget.Toast;
  */
 public class MyFragment4 extends Fragment {
 
-    public MyFragment4() {
-    }
 
     TextView tv_clearcache;
     TextView tv_about;
     TextView bt_logout;
     TextView tv_suggestion;
     TextView tv_version;
+    String username;
+    TextView zhanghao;
+    TextView danwei;
+    TextView status;
+
+    Bundle bundle4;
+
+    public MyFragment4() {
+    }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment4,container,false);
+
+        zhanghao = (TextView)view.findViewById(R.id.zhanghaobangding);
+        danwei = (TextView)view.findViewById(R.id.danwei);
+        status = (TextView)view.findViewById(R.id.status);
+        zhanghao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"未开发",Toast.LENGTH_SHORT).show();
+            }
+        });
+        danwei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"未开发",Toast.LENGTH_SHORT).show();
+            }
+        });
+        status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"未开发",Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
@@ -65,8 +95,9 @@ public class MyFragment4 extends Fragment {
                         //输出缓存大小
                         try {
                             cache = DataCleanManager.getTotalCacheSize(getContext());
-                            Toast.makeText(getContext(),""+cache,Toast.LENGTH_LONG).show();
-                            Log.i("111","缓存："+DataCleanManager.getTotalCacheSize(getContext()));
+                            Toast.makeText(getContext(),"缓存："+cache,Toast.LENGTH_LONG).show();
+                            DataCleanManager.clearAllCache(getContext());
+                            //Log.i("111","缓存："+DataCleanManager.getTotalCacheSize(getContext()));
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -109,6 +140,9 @@ public class MyFragment4 extends Fragment {
         });
 
 
+        bundle4 = getArguments();
+        username = bundle4.getString("id");
+
         /**
          * 意见反馈
          */
@@ -117,6 +151,7 @@ public class MyFragment4 extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),F4_suggestion.class);
+                intent.putExtra("username",username);
                 startActivity(intent);
             }
         });
