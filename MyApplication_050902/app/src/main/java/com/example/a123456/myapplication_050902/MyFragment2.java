@@ -3,6 +3,7 @@ package com.example.a123456.myapplication_050902;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -91,6 +92,8 @@ public class MyFragment2 extends Fragment {
             public void onClick(View v) {
 
                 if (isMeasuring) return ;
+                Log.d(TAG, "hfdslfjsla");
+                isMeasuring = true;
                 raiseOnTriggerDo();
             }
         });
@@ -100,11 +103,43 @@ public class MyFragment2 extends Fragment {
             public boolean onLongClick(View v) {
 
                 if (!isMeasuring) return false;
-                raiseOnTriggerUndo();
+                showNormalDialog();
                 return true;
             }
         });
 
+    }
+
+    private void showNormalDialog(){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(getContext());
+        normalDialog.setIcon(R.mipmap.ic_launcher_round);
+        normalDialog.setTitle("");
+        normalDialog.setMessage("确定要停下吗?");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                        isMeasuring = false;
+                        raiseOnTriggerUndo();
+
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 
     public boolean isSafe(int heartBeat) {
@@ -120,6 +155,7 @@ public class MyFragment2 extends Fragment {
     public void callHelper() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         //赋值标题
+        if (builder == null) return ;
         builder.setTitle("ALERT")
                 //logo赋值
                 .setIcon(R.mipmap.ic_launcher)
@@ -141,6 +177,7 @@ public class MyFragment2 extends Fragment {
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
                 });
         //显示弹框
@@ -149,7 +186,7 @@ public class MyFragment2 extends Fragment {
 
     public void onNotification(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
         UUID alertUUID = characteristic.getUuid();
-        isMeasuring = true;
+        //isMeasuring = true;
         if (alertUUID.equals(Consts.CHARACTERISTIC_HEART_NOTIFICATION)) {
             final byte hearbeat =
                     characteristic.getValue()[1];
@@ -158,6 +195,7 @@ public class MyFragment2 extends Fragment {
                 public void run() {
                     if (!isSafe(hearbeat)) {
                         callHelper();
+
                     }
                     heart11.setText(Byte.toString(hearbeat));
                     /*
@@ -185,13 +223,22 @@ public class MyFragment2 extends Fragment {
     public void onWrite(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, final int status) {
 
         // 处理
-        heart11.setText("准备中...");
+        if (!characteristic.getUuid().toString().equals(Consts.CHARACTERISTIC_HEART_NOTIFICATION.toString()))
+            heart11.setText("准备中...");
+        if (characteristic.getUuid().toString().equals(Consts.NOTIFICATION_DESCRIPTOR.toString()))
+            heart11.setText("开始");
     }
 
     public void onRead(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic, final int status) {
 
         // 处理
-        heart11.setText("准备中...");
+        if (!characteristic.getUuid().toString().equals(Consts.CHARACTERISTIC_HEART_NOTIFICATION.toString()))
+            heart11.setText("准备中...");
+    }
+
+    public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+        if (descriptor.getUuid().toString().equals(Consts.NOTIFICATION_DESCRIPTOR.toString()))
+            heart11.setText("开始");
     }
 
     public interface fg_2_Trigger{

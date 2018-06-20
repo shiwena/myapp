@@ -149,7 +149,7 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
                                     }
                                 });
                             }
-                        }, 10000, 12000);
+                        }, 10000, 14000);
 
                         helper.writeDataDescriptor(
                                 Consts.SERVICE_HEARTBEAT,
@@ -187,13 +187,13 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
                                 Consts.SERVICE_HEARTBEAT,
                                 Consts.HEARTRATE_CONTROL_POINT,
                                 new byte[]{0x15, 0x01, 0x01},
-                                1500
+                                5000
                         );
                         helper.DelayWriteData(
                                 Consts.SERVICE_MIBAND1_SERVICE,
                                 Consts.CHARACTERISTIC_SENSOR,
                                 new byte[]{0x02},
-                                2500
+                                5000
                         );
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -216,6 +216,7 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         }
         */
         // 线程不可以重用，所以每次都要重新开
+
         timer.cancel();
         timer = null;
         new Thread(new Runnable() {
@@ -273,10 +274,19 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSearch:
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    //请求权限
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        //判断是否需要解释
+                        Toast.makeText(getContext(), "需要蓝牙权限", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 if (!helper.bluetoothAdapter.isEnabled()) {
                     Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     startActivityForResult(turnOn, 0);
                 }
+
                 Thread scanThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -300,7 +310,7 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         Log.d(TAG, "Request code: "+requestCode);
         Log.d(TAG, "Result code: "+resultCode);
 
-        if (requestCode == 0) {
+        if (requestCode == 1) {
             if (isLocationOpen(getContext())) {
                 Log.i(TAG, " request location permission success"); //Android6.0需要动态申请权限
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

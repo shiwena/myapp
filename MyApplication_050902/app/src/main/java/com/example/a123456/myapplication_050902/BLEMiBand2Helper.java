@@ -313,6 +313,7 @@ public class BLEMiBand2Helper {
             Log.d(TAG, "onDescriptorWrite: "+descriptor.getUuid().toString());
             Log.d(TAG, Arrays.toString(descriptor.getValue()));
             Log.d(TAG, "Status: "+String.valueOf(status));
+            raiseonDescriptorWrite(gatt, descriptor, status);
             super.onDescriptorWrite(gatt, descriptor, status);
         }
     };
@@ -472,6 +473,7 @@ public class BLEMiBand2Helper {
         void onConnecting();
         void onRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status);
         void onWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status);
+        void onDescriptorWritei(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status);
         void onNotification(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic);
     }
 
@@ -485,6 +487,11 @@ public class BLEMiBand2Helper {
 
     public void removeListener(BLEAction toDel) {
         listeners.remove(toDel);
+    }
+
+    public void raiseonDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+        for (BLEAction listener : listeners)
+            listener.onDescriptorWritei(gatt, descriptor, status);
     }
 
     public void raiseonNotification(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {

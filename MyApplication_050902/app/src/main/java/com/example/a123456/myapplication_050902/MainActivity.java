@@ -2,6 +2,7 @@ package com.example.a123456.myapplication_050902;
 
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -245,6 +246,22 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     @Override
+    public void onDescriptorWritei(final BluetoothGatt gatt, final BluetoothGattDescriptor descriptor, final int status) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                int fg_2 = vpager.getCurrentItem();
+                if (fg_2 == PAGE_TWO) {
+                    MyFragment2 fg2 = (MyFragment2) mAdapter.currentFragment;
+                    if (fg2 != null) {
+                        fg2.onDescriptorWrite(gatt, descriptor, status);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
     public void onNotification(final BluetoothGatt gatt, final BluetoothGattCharacteristic characteristic) {
 
         // 在这里应该做区别处理，为方便，统一执行相同的，，，
@@ -270,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "来自fg2de信号");
+                Log.d(TAG, "来自fg2de信号1");
                 int fg_2 = vpager.getCurrentItem();
                 if (fg_2 == PAGE_TWO) {
                     MyFragment3 fg3 = (MyFragment3)mAdapter.getItem(PAGE_THREE);
@@ -299,12 +316,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "来自fg2de信号");
+                Log.d(TAG, "来自fg2de信号2");
                 int fg_2 = vpager.getCurrentItem();
                 if (fg_2 == PAGE_TWO) {
                     MyFragment3 fg3 = (MyFragment3)mAdapter.getItem(PAGE_THREE);
                     if (fg3 != null) {
-                        if (fg3.helper != null && fg3.helper.isConnectedGatt && fg3.helper.isMeasuring) {
+                        if (fg3.helper != null && fg3.helper.isConnectedGatt && fg3.helper.isMeasuring && fg3.timer != null) {
+                            fg3.helper.isMeasuring = false;
                             fg3.stopMeasure();
                         } else {
                             // ignore the event.do nothing.
