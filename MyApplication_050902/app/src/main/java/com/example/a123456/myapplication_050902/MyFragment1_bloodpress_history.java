@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -133,12 +134,15 @@ public class MyFragment1_bloodpress_history extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                myHandler.sendEmptyMessage(0x125);
                 Looper.loop();
             }
         }).start();
-        long delay = 1000;
-        new Handler().postDelayed(new Runnable() {//这里也要写线程，并且延迟时间要长，不然会抢在数据库操作之前执行。
-            public void run() {
+    }
+
+    final Handler myHandler = new Handler() {//这里更改掉了旧方法，使得handler里面的内容可以真正的实现“数据库读取完成后再开始更改UI”。
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x125) {
                 //折线图的调用
                 lineChart = (LineChartView) findViewById(R.id.line_bloodpress_chart);
                 lineChart2 = (LineChartView) findViewById(R.id.line_bloodpress_chart2);
@@ -196,8 +200,8 @@ public class MyFragment1_bloodpress_history extends AppCompatActivity {
 
                 setListViewOnTouchAndScrollListener(listView, listView2, listView3);//这个方法将每个xml的内容分别放在每个listview上。
             }
-        }, delay);
-    }
+        }
+    };
 
     public void setListViewOnTouchAndScrollListener(final ListView listView, final ListView listView2, final ListView listView3) {
 
@@ -376,6 +380,7 @@ public class MyFragment1_bloodpress_history extends AppCompatActivity {
         v.right = 7;
         lineChart.setCurrentViewport(v);
     }
+
     private void initLineChart2() {
 
         Line line = new Line(mPointValues2).setColor(Color.parseColor("#57C1FD"));  //折线的颜色
@@ -438,6 +443,7 @@ public class MyFragment1_bloodpress_history extends AppCompatActivity {
 
 
     }
+
     private void getAxisXLables2() {
         int i = 0;
         while (Usertime3.peek() != null) {
@@ -459,6 +465,7 @@ public class MyFragment1_bloodpress_history extends AppCompatActivity {
         }
 
     }
+
     private void getAxisPoints2() {
         int i = 0;
         while (Usershuzhangya2.peek() != null) {
