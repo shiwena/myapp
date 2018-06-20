@@ -153,8 +153,12 @@ public class BLEMiBand2Helper {
             Log.d(TAG, "NNNNNN");
         }
         BluetoothManager bluetoothManager = (BluetoothManager) helperContext.getSystemService(BLUETOOTH_SERVICE);
-        bluetoothAdapter = bluetoothManager.getAdapter();
-        bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+        if (bluetoothManager != null) {
+            bluetoothAdapter = bluetoothManager.getAdapter();
+            if (bluetoothAdapter != null) {
+                bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner();
+            }
+        }
     }
 
     public void pingCheck() throws InterruptedException {
