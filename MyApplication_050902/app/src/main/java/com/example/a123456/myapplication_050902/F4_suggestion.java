@@ -17,6 +17,7 @@ public class F4_suggestion extends AppCompatActivity {
     TextView tv_username;
     EditText et_content;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class F4_suggestion extends AppCompatActivity {
         tv_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("aaa","123");
                 Toast.makeText(F4_suggestion.this,"未完善",Toast.LENGTH_SHORT).show();
             }
         });
