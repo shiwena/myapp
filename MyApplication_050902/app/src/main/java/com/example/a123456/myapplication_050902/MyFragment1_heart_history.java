@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -116,13 +118,18 @@ public class MyFragment1_heart_history extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                myHandler.sendEmptyMessage(0x123);
                 Looper.loop();
+
             }
         }).start();
         //Log.i("heart33333333",Userheart.poll()+Usertime.poll());
-        long delay = 1000;
-        new Handler().postDelayed(new Runnable() {//这里也要写线程，并且延迟时间要长，不然会抢在数据库操作之前执行。
-            public void run() {
+
+    }
+    final Handler myHandler = new Handler(){//这里更改掉了旧方法，使得handler里面的内容可以真正的实现“数据库读取完成后再开始更改UI”。
+        public void handleMessage(Message msg){
+            if(msg.what==0x123){
+                //Toast.makeText(MyFragment1_heart_history.this, "handler创建成功！", Toast.LENGTH_SHORT).show();
                 //折线图的调用
                 lineChart = (LineChartView) findViewById(R.id.line_heart_chart);
                 getAxisXLables();//获取x轴的标注
@@ -179,8 +186,8 @@ public class MyFragment1_heart_history extends AppCompatActivity {
                 listView3.setFastScrollEnabled(false);
                 setListViewOnTouchAndScrollListener(listView,listView2,listView3);
             }
-        }, delay);
-    }
+        }
+    };
     public void setListViewOnTouchAndScrollListener(final ListView listView,final ListView listView2,final ListView listView3){
 
 
