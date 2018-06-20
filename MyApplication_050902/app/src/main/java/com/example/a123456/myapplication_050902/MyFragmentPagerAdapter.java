@@ -41,6 +41,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
                 break;
             case MainActivity.PAGE_FOUR:
                 fragment = myFragment4;
+                Bundle bundle4 = new Bundle();
+                bundle4.putString("id",User_id);
+                fragment.setArguments(bundle4);
                 break;
         }
         return fragment;

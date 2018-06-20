@@ -36,6 +36,7 @@
             android:gravity="center_vertical|left"
             android:layout_marginLeft="20dp"
             android:text="账号绑定"
+            android:id="@+id/zhanghaobangding"
             />
 
         <ImageView
@@ -70,6 +71,7 @@
                 android:layout_weight="4"
                 android:layout_marginLeft="10dp"
                 android:text="单位"
+                android:id="@+id/danwei"
                 />
 
             <ImageView
@@ -102,6 +104,7 @@
                 android:gravity="center_vertical|left"
                 android:layout_marginLeft="10dp"
                 android:text="通知栏显示连接状态"
+                android:id="@+id/status"
                 />
 
             <RadioButton
