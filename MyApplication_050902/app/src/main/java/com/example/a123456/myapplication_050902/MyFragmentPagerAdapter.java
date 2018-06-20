@@ -13,6 +13,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private MyFragment3 myFragment3 = null;
     private MyFragment4 myFragment4 = null;
     private String User_id;
+    public Fragment currentFragment;
 
     public MyFragmentPagerAdapter(FragmentManager fm,String Userid) {
         super(fm);
@@ -21,6 +22,12 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         myFragment3 = new MyFragment3();
         myFragment4 = new MyFragment4();
         User_id=Userid;
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        this.currentFragment = (Fragment)object;
+        super.setPrimaryItem(container, position, object);
     }
 
     @Override
