@@ -1,38 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:background="@color/bg_greenhat"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fg_4_txtHead"
-            android:text="head for this"
-            android:textColor="@color/bg_gray"
-            android:textSize="24dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fg_4_imgTitle"
-            android:src="@mipmap/ic_launcher_round"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            />
-    </RelativeLayout>
+        android:layout_height="60dp"
+        android:id="@+id/fg_4_txtHead"
+        android:text="head for this"
+        android:textColor="@color/text_white"
+        android:background="@color/colorSkyBlue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/fg_4_imgTitle"
+        android:src="@mipmap/logo3"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        />
+
 
     <View
         android:layout_width="match_parent"
@@ -60,8 +53,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
                     android:text="连接状态："
                     >
                 </TextView>
@@ -69,8 +62,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtStatus"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
                     android:textColor="@color/div_white1"
                     android:text="未连接"
                     >
@@ -85,8 +78,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
                     android:text="当前设备："
                     >
                 </TextView>
@@ -94,8 +87,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtCurrentDevice"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical"
                     android:textColor="@color/div_white1"
                     android:text="无"
                     >
@@ -106,14 +99,14 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/btnSearch"
-            android:background="#fffff0"
-            android:layout_weight=".01"
+            android:background="#f0f0f0"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
             android:textSize="35dp"
             android:text="扫描"
             />
-
     </LinearLayout>
 
 

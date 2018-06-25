@@ -224,23 +224,13 @@ public class MyFragment4 extends Fragment {
                 });
 
 
-
-
             }
         });
 
 
 
-
-
-
         return view;
     }
-
-
-
-
-
 
 
 }

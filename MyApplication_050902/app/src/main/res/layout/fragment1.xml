@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <TextView
@@ -12,13 +14,14 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:text="我的状态"
-        android:textColor="#000000"
+        android:background="@color/colorSkyBlue"
+        android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20px"
+        android:layout_height="15px"
         android:background="@color/div_white" />
 
     <LinearLayout
@@ -91,7 +94,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20px"
+        android:layout_height="15px"
         android:background="@color/div_white" />
 
     <LinearLayout
@@ -165,7 +168,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20px"
+        android:layout_height="15px"
         android:background="@color/div_white" />
 
     <LinearLayout
@@ -238,7 +241,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20px"
+        android:layout_height="15px"
         android:background="@color/div_white" />
 
     <LinearLayout
@@ -311,7 +314,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20px"
+        android:layout_height="15px"
         android:background="@color/div_white" />
 
     <LinearLayout
@@ -384,11 +387,11 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20px"
+        android:layout_height="15px"
         android:background="@color/div_white" />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -399,6 +402,13 @@
             android:height="80dp"
             android:text="可以点击各项指标左边的图标查看历史数据。" />
     </ScrollView>
+
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
+    </LinearLayout>
 
 
     <LinearLayout
@@ -413,7 +423,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#ff3187"
+            android:background="@color/colorSkyBlue"
             android:text="分析建议"
             android:textColor="#FFFFFF"
             android:textSize="25dp" />
@@ -425,7 +435,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="#ff3187"
+            android:background="@color/colorSkyBlue"
             android:text="语音播报"
             android:textColor="#FFFFFF"
             android:textSize="25dp" />
