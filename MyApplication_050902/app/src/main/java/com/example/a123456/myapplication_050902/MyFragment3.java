@@ -217,6 +217,9 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         */
         // 线程不可以重用，所以每次都要重新开
 
+        if (!helper.isMeasuring) return ;
+        helper.isMeasuring = false;
+
         timer.cancel();
         timer = null;
         new Thread(new Runnable() {

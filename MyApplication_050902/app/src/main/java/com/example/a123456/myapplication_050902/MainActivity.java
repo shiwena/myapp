@@ -292,9 +292,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 if (fg_2 == PAGE_TWO) {
                     MyFragment3 fg3 = (MyFragment3)mAdapter.getItem(PAGE_THREE);
                     if (fg3 != null) {
-                        if (fg3.helper != null && fg3.helper.isConnectedGatt) {
+                        if (fg3.helper != null && fg3.helper.isConnectedGatt && !fg3.helper.isMeasuring) {
                             fg3.startMeasure();
-                        } else {
+                        } else if (fg3.helper == null || !fg3.helper.isConnectedGatt){
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -302,6 +302,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                                     vpager.setCurrentItem(2);
                                 }
                             });
+                        } else {
+                            // ignore the event.
                         }
                     }
                 }
@@ -322,7 +324,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     MyFragment3 fg3 = (MyFragment3)mAdapter.getItem(PAGE_THREE);
                     if (fg3 != null) {
                         if (fg3.helper != null && fg3.helper.isConnectedGatt && fg3.helper.isMeasuring && fg3.timer != null) {
-                            fg3.helper.isMeasuring = false;
                             fg3.stopMeasure();
                         } else {
                             // ignore the event.do nothing.
@@ -334,4 +335,23 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         });
     }
+
+    @Override
+    public boolean isMeasuring() {
+        int fg_2 = vpager.getCurrentItem();
+        if (fg_2 == PAGE_TWO) {
+            MyFragment3 fg3 = (MyFragment3) mAdapter.getItem(PAGE_THREE);
+            if (fg3 != null) {
+                if (fg3.helper != null && fg3.helper.isConnectedGatt && fg3.helper.isMeasuring && fg3.timer != null) {
+                    return fg3.helper.isMeasuring;
+                } else {
+                    // ignore the event.do nothing.
+                }
+            } else {
+                // ignore the event.do nothing.
+            }
+        }
+        return false;
+    }
+
 }

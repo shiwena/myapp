@@ -93,7 +93,6 @@ public class MyFragment2 extends Fragment {
 
                 if (isMeasuring) return ;
                 Log.d(TAG, "hfdslfjsla");
-                isMeasuring = true;
                 raiseOnTriggerDo();
             }
         });
@@ -102,7 +101,7 @@ public class MyFragment2 extends Fragment {
             @Override
             public boolean onLongClick(View v) {
 
-                if (!isMeasuring) return false;
+                if (!fg_callback.isMeasuring()) return false;
                 showNormalDialog();
                 return true;
             }
@@ -244,6 +243,7 @@ public class MyFragment2 extends Fragment {
     public interface fg_2_Trigger{
         void onTriggerTheMeasure();
         void onTriggerUndoTheMeasure();
+        boolean isMeasuring();
     }
 
     private ArrayList<fg_2_Trigger> listenners = new ArrayList<>();
