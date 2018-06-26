@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#0000"
     android:gravity="center">
 
     <Button
@@ -24,12 +25,6 @@
         android:background="@drawable/btn_done_selector2"
         android:text="取消"
         />
-
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="aaa"/>-->
-
 
 
 </LinearLayout>

@@ -7,12 +7,14 @@ import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import static java.lang.Thread.sleep;
 
 public class MyFragment1 extends Fragment {
 
@@ -45,6 +49,9 @@ public class MyFragment1 extends Fragment {
     TextView Text_tiwen;
     TextView Text_xuezhi;
     Bundle bundle;
+
+    private LinearLayout linearLayout = null;
+
 
     private Date date;
     private String Testtime;
@@ -141,7 +148,6 @@ public class MyFragment1 extends Fragment {
                     } else {
                         Log.i("Mainactivity", "没有数据");
                     }
-//
 
                     cn.close();
                     st.close();
@@ -214,11 +220,6 @@ public class MyFragment1 extends Fragment {
                     Text_xuezhi.setText(Testtime);
                     xz = Double.parseDouble(xuezhi);
                 }
-
-
-
-
-
 
 
                 //接下来将判断各项数据是否为空
@@ -396,6 +397,21 @@ public class MyFragment1 extends Fragment {
 
                 textToSpeech.speak(tv_result.getText().toString(),TextToSpeech.QUEUE_ADD,null);
 
+                linearLayout= (LinearLayout)getView().findViewById(R.id.LinearLayout1);
+                linearLayout.setOnTouchListener(new View.OnTouchListener() {
+
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        // TODO Auto-generated method stub
+                        switch(event.getAction()){
+                            case MotionEvent.ACTION_DOWN:
+                                textToSpeech.stop();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
             }
         });
         heartbutton.setOnClickListener(new View.OnClickListener() {
@@ -452,6 +468,7 @@ public class MyFragment1 extends Fragment {
 
 
     }
+
 
 
 }

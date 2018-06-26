@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
+    android:id="@+id/LinearLayout1"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -400,6 +401,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:height="80dp"
+            android:gravity="center"
             android:text="可以点击各项指标左边的图标查看历史数据。" />
     </ScrollView>
 
