@@ -1,7 +1,9 @@
 package com.example.a123456.myapplication_050902;
 
 import android.content.Context;
+import android.graphics.LightingColorFilter;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -23,6 +25,9 @@ public class DataCleanManager {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteDir(context.getExternalCacheDir());
         }
+
+
+        Log.i("clearAllCache","**************************************clearAllCache");
     }
 
     private static boolean deleteDir(File dir) {

@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText etnianling;
     EditText etxingbie;
     EditText etdianhua;
+    EditText etshengao;
 
     private String zhanghao;
     private String xingming;
@@ -34,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private String nianling;
     private String xingbie;
     private String dianhua;
+    private String shengao;
+
     private Boolean flagr=false;
 
     @Override
@@ -49,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         etmima=(EditText)findViewById(R.id.etmima);
         etxingbie=(EditText)findViewById(R.id.etxingbie);
         etdianhua=(EditText)findViewById(R.id.etdianhua);
+        etshengao=(EditText)findViewById(R.id.etshengao);
         zhucewancheng.setOnClickListener(this);
         fanhuidenglu.setOnClickListener(this);
 
@@ -66,6 +70,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 nianling=etnianling.getText().toString();
                 xingbie=etxingbie.getText().toString();
                 dianhua=etdianhua.getText().toString();
+                shengao=etshengao.getText().toString();
+
                 if(zhanghao.equals("")){
                     Toast.makeText(this,"账号不能为空！",Toast.LENGTH_LONG).show();
                 }
@@ -86,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 String time = sdf.format(date);
                                 String sql = "SELECT Userid FROM user where Userid='" + zhanghao + "';";
-                                String sql1 = "INSERT INTO user VALUES('" + zhanghao + "','" + xingming + "','" + mima + "','" + nianling + "','" + xingbie + "','" + dianhua + "','" + time + "');";
+                                String sql1 = "INSERT INTO user VALUES('" + zhanghao + "','" + xingming + "','" + mima + "','" + nianling + "','" + xingbie + "','" + dianhua + "','" + time +"','" + shengao + "');";
                                 Statement st = (Statement) cn.createStatement();
                                 ResultSet rs = st.executeQuery(sql);
                                 if (rs.next()) {

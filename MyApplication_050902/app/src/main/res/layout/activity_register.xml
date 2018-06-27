@@ -205,6 +205,31 @@
             android:hint="电话"
             android:textSize="16dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/riqi" />
+
+        <EditText
+            android:id="@+id/etshengao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:hint="身高（米）"
+            android:textSize="16dp" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
