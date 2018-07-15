@@ -13,7 +13,7 @@ public class LogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logo);
 
 
-        Integer time=1000;
+        Integer time=3000;
 //        毫秒
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
