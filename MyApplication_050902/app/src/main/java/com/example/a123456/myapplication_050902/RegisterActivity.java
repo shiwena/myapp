@@ -79,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(this,"密码不能少于6位",Toast.LENGTH_LONG).show();
                 }
                 if(zhanghao.length()>0&&mima.length()>=6) {
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -127,6 +128,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Looper.loop();
                         }
                     }).start();
+
+
                 }
 //                    Toast.makeText(this,"yes",Toast.LENGTH_SHORT).show();
                 break;
@@ -143,4 +146,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+
 }

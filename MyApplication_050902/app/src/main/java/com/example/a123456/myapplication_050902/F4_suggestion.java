@@ -10,8 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +30,6 @@ public class F4_suggestion extends AppCompatActivity {
     private String detail;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +41,6 @@ public class F4_suggestion extends AppCompatActivity {
         tv_username.setText(username + "");
 
         et_content = (EditText) findViewById(R.id.et_content);
-
-
 
 
         tv_cancel = (TextView) findViewById(R.id.tv_cancel);
@@ -70,7 +68,11 @@ public class F4_suggestion extends AppCompatActivity {
                             Class.forName("com.mysql.jdbc.Driver");
                             java.sql.Connection con = DriverManager.getConnection("jdbc:mysql://119.23.70.24:3306/car", "root", "qwaszx");
 
-                            String sql = "insert into user_suggestion(username,detail) values ('" + username + "','" + detail + "')";
+                            Date date = new Date();
+                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String time = df.format(date);
+
+                            String sql = "insert into user_suggestion(username,detail,time) values ('" + username + "','" + detail + "','" + time + "')";
                             Statement st = (Statement) con.createStatement();
                             st.execute(sql);
 
