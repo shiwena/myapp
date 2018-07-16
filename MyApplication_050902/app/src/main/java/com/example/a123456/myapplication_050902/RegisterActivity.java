@@ -150,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     public boolean register(final String zhanghao ,String mima) {
         try {
+
             if (zhanghao.length() <= 0 && mima.length() < 6) {
                 return false;
             } else {

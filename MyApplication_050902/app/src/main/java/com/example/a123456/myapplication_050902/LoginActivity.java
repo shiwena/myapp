@@ -151,12 +151,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             ResultSet rs;
 
             rs = st.executeQuery(sql);
-            while (rs.next()) {
+            if(rs.next()) {
                 Userpw = rs.getString("Userpw");
                 if (Userpw.equals(pas)){
                     return true;
                 }
-            }
+                if(!Userpw.equals(pas)){
+                    return false;
+                }
+            }else return false;
             cn.close();
             st.close();
             rs.close();
