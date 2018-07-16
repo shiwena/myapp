@@ -42,6 +42,8 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
+
+
 public class MyFragment1_bloodpress_history extends AppCompatActivity {
 
     private Queue<String> Usershousuoya = new LinkedList<String>();//用于存储数据库的数据，然后作为历史记录的数据

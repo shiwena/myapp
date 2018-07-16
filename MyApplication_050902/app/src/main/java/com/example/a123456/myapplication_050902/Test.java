@@ -53,6 +53,7 @@ public class Test {
     public void register3(){
         // test register"注册成功"
         assertEquals(true, new RegisterActivity().register("a123","123456"));
+
     }
 
 
