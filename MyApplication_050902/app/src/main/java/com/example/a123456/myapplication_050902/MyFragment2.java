@@ -81,6 +81,7 @@ public class MyFragment2 extends Fragment {
         }
     }
 
+    /*Activity创建时设置点击事件*/
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -109,6 +110,7 @@ public class MyFragment2 extends Fragment {
 
     }
 
+    /*工具回话框*/
     private void showNormalDialog(){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
@@ -141,6 +143,7 @@ public class MyFragment2 extends Fragment {
         normalDialog.show();
     }
 
+    /*心跳值正常值测试*/
     public boolean isSafe(int heartBeat) {
 
         if (heartBeat > 180 || heartBeat < 40) {
@@ -151,6 +154,7 @@ public class MyFragment2 extends Fragment {
         }
     }
 
+    /*打电话求助*/
     public void callHelper() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         //赋值标题
@@ -240,6 +244,7 @@ public class MyFragment2 extends Fragment {
             heart11.setText("开始");
     }
 
+    /*实时检测和主Activity交互数据的接口*/
     public interface fg_2_Trigger{
         void onTriggerTheMeasure();
         void onTriggerUndoTheMeasure();

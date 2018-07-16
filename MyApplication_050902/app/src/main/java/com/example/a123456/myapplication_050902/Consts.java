@@ -2,6 +2,10 @@ package com.example.a123456.myapplication_050902;
 
 import java.util.UUID;
 
+
+/*
+* 一些常量值
+* */
 public class Consts {
 
     // 0000 2902 0000 1000800000805F9B34FB
