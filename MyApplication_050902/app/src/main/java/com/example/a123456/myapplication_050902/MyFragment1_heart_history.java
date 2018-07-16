@@ -126,6 +126,10 @@ public class MyFragment1_heart_history extends AppCompatActivity {
         //Log.i("heart33333333",Userheart.poll()+Usertime.poll());
 
     }
+    /*
+     *
+     * 接收到myHandler发送的消息：0x123后开始做折线图和历史数据。
+     */
     final Handler myHandler = new Handler(){//这里更改掉了旧方法，使得handler里面的内容可以真正的实现“数据库读取完成后再开始更改UI”。
         public void handleMessage(Message msg){
             if(msg.what==0x123){

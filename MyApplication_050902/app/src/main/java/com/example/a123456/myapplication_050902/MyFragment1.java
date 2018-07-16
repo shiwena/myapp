@@ -169,7 +169,11 @@ public class MyFragment1 extends Fragment {
         // TODO Auto-generated method stub
         super.onActivityCreated(savedInstanceState);
 
-
+        /*
+         *提交各项数据给数据库，并在本地分析数据。
+         *
+         *
+         */
         fenxi.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -87,13 +87,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Looper.prepare();
                             try {
                                 Class.forName("com.mysql.jdbc.Driver");
-                                java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8", "root", "SWsw1997");
+                                java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8",
+                                        "root", "SWsw1997");
 //                            String a="1";
                                 Date date = new Date(System.currentTimeMillis());
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 String time = sdf.format(date);
                                 String sql = "SELECT Userid FROM user where Userid='" + zhanghao + "';";
-                                String sql1 = "INSERT INTO user VALUES('" + zhanghao + "','" + xingming + "','" + mima + "','" + nianling + "','" + xingbie + "','" + dianhua + "','" + time +"','" + shengao + "');";
+                                String sql1 = "INSERT INTO user VALUES('" + zhanghao + "','" + xingming + "','"
+                                        + mima + "','" + nianling + "','" + xingbie + "','" + dianhua + "','" + time +"','" + shengao + "');";
                                 Statement st = (Statement) cn.createStatement();
                                 ResultSet rs = st.executeQuery(sql);
                                 if (rs.next()) {
@@ -146,5 +148,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
     }
+    public boolean register(final String zhanghao ,String mima) {
+        try {
+            if (zhanghao.length() <= 0 && mima.length() < 6) {
+                return false;
+            } else {
+                Class.forName("com.mysql.jdbc.Driver");//连接数据库
+                java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp",
+                        "root", "SWsw1997");
+                String sql = "SELECT Userid FROM user where Userid='" + zhanghao + "';";
+                Statement st = (Statement) cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+                boolean rs1 = rs.next();
+                    if (rs1) {
+                        return false;
+                    }
+                    if (!rs1){
+                        return true;
+                    }
 
+                cn.close();
+                st.close();
+                rs.close();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+
+
+    }
 }
