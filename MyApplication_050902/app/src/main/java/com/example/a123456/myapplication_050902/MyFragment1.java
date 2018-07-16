@@ -25,7 +25,11 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import static java.lang.Thread.sleep;
 
 public class MyFragment1 extends Fragment {
@@ -225,7 +229,6 @@ public class MyFragment1 extends Fragment {
                     xz = Double.parseDouble(xuezhi);
                 }
 
-
                 //接下来将判断各项数据是否为空
                 if(!xinlv.equals(""))
                 {
@@ -341,7 +344,6 @@ public class MyFragment1 extends Fragment {
                 tv_result.setText(res);
 
 
-
                 //向数据库中插入未空的信息。
                 new Thread(new Runnable() {
                     @Override
@@ -369,7 +371,6 @@ public class MyFragment1 extends Fragment {
 
                             cn.close();
                             st.close();
-
 
                         } catch (ClassNotFoundException e) {
                             e.printStackTrace();
@@ -472,7 +473,39 @@ public class MyFragment1 extends Fragment {
 
 
     }
+    public int InsertDate(final String xinlv, String tizhong, String xueya, String tiwen, String xuezhi) {
+        try {
+            if (xinlv.length() <= 0 || tizhong.length() <=0 ||xueya.length()<=0|| tiwen.length()<=0|| xuezhi.length()<=0) {
+                return 1;
+            } else {
+                Class.forName("com.mysql.jdbc.Driver");
+                java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8", "root", "SWsw1997");
 
+                String sqlbfat = "INSERT INTO userbloodfat VALUES('" + Userid + "','" + Testtime+ "','" + xz + "');";//插入血脂
+                String sqlbpress="INSERT INTO userbloodpress VALUES('" + Userid + "','" + Testtime+ "','" + xy[0]+ "','"+xy[1]+"');";//插入血压
+                String sqlheart = "INSERT INTO userheart VALUES('" + Userid + "','" + Testtime+ "','" + xl + "');";//插入心率
+                String sqltemp = "INSERT INTO usertemperature VALUES('" + Userid + "','" + Testtime+ "','" + tw + "');";//插入体温
+                String sqlweight="INSERT INTO userweight VALUES('" + Userid + "','" + Testtime+ "','" + tz+ "','"+BMI+"');";//插入体重和BMI
+                Statement st = (Statement) cn.createStatement();
 
+                int rs = st.executeUpdate(sqlbfat);
+                int rs1= st.executeUpdate(sqlweight);
+                int rs2=st.executeUpdate(sqlbpress);
+                int rs3= st.executeUpdate(sqltemp);
+                int rs4= st.executeUpdate(sqlbfat);
+
+                cn.close();
+                st.close();
+                if(rs>0||rs1>0||rs2>0||rs3>0||rs4>0)
+                    return 2;
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
 
 }
