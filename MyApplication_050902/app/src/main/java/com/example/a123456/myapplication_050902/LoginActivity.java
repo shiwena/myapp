@@ -140,7 +140,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public boolean login(final String username, String pas) {
 
-
         boolean f = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -160,7 +159,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             cn.close();
             st.close();
             rs.close();
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

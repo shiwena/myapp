@@ -39,6 +39,8 @@ public class Test {
 
         assertEquals(true, new RegisterActivity().register("a123","123456"));
 
+
+
     }
 
 
