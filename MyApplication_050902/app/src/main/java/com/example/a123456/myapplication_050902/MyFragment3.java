@@ -107,6 +107,9 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         setStatus();
     }
 
+    /*
+    * 初始化界面数据
+    * */
     public void setStatus() {
         if (helper != null && helper.isConnectedGatt) {
             txtStatus.setText("连接成功");
@@ -115,7 +118,9 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         }
     }
 
-    // 开始定时测量
+    /*
+     *开始定时测量
+    * */
     public void startMeasure() {
         /*
         if (!helper.isConnected()) {
@@ -203,7 +208,9 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         }
     }
 
-    // 停止定时测量
+    /*
+    *停止定时测量
+    */
     public void stopMeasure() {
         /*
         if (helper != null && helper.isConnectedGatt && helper.isMeasuring) {
@@ -272,7 +279,6 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
     /*
      *因为是直接使用点击搜索，所以相关变量的初始化工作要做好
     */
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -307,7 +313,10 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
     }
 
 
-    // 更新UI一定要在主线程中执行
+    /*
+    *startIntent之后需要返回值时的回调，
+    * ps:更新UI一定要在主线程中执行
+    */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "Request code: "+requestCode);
@@ -349,7 +358,10 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         }
     }
 
-    /** *判断位置信息是否开启 * @param context * @return */
+    /**
+     * *判断位置信息是否开启
+     * * @param context
+     * * @return */
     //开启位置服务,支持获取ble蓝牙扫描结果
     public static boolean isLocationOpen(final Context context) {
         LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);//gps定位
@@ -358,6 +370,7 @@ public class MyFragment3 extends Fragment implements View.OnClickListener{
         return isGpsProvider|| isNetWorkProvider;
     }
 
+    /* 以下函数，连接数据信息相关 ...*/
     public void onDisconnecting() {
         handler.post(new Runnable() {
             @Override

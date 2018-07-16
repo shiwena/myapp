@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+
+/*
+* 设备ItemAdapter
+* */
 public class DeviceItemAdapter extends BaseAdapter {
 
     public List<BluetoothDevice> mList;

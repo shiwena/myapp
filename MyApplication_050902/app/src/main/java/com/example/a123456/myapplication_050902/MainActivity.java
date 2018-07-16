@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     }
 
+    /*以下方法是`BLEMiBand2Helper.BLEAction, MyFragment2.fg_2_Trigger`接口的实现*/
+
     @Override
     public void onDisconnecting() {
         handler.post(new Runnable() {

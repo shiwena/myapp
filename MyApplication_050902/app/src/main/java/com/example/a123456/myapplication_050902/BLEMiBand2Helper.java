@@ -33,6 +33,10 @@ import java.util.UUID;
 
 import static android.content.Context.BLUETOOTH_SERVICE;
 
+
+/*
+* BLE类用于蓝牙连接、扫描管理等工作
+* */
 public class BLEMiBand2Helper {
 
     private final String TAG = "FGO";
@@ -61,6 +65,10 @@ public class BLEMiBand2Helper {
 
     private Handler helperHandler = null;
 
+
+    /*
+    * 停止扫描
+    * */
     public void stopScan() {
         if (bluetoothAdapter == null || bluetoothLeScanner == null)
             return ;
@@ -68,6 +76,9 @@ public class BLEMiBand2Helper {
         isSearching = false;
     }
 
+    /*
+    * 断开连接
+    * */
     public void disConnect() {
         if (timer != null) {
             timer.cancel();
@@ -79,12 +90,18 @@ public class BLEMiBand2Helper {
             bluetoothGatt.disconnect();
     }
 
+    /*
+    * 连接蓝牙BLE设备
+    * */
     public void connectGatt() {
         if (bluetoothAdapter == null || bluetoothDevice == null)
             return ;
         bluetoothGatt = bluetoothDevice.connectGatt(helperContext, false, gattCallback);
     }
 
+    /*
+    * 启动计时器，扫描是定时扫描的
+    * */
     public void startTimer() {
         if (timer != null){
             timer.cancel();
@@ -108,6 +125,10 @@ public class BLEMiBand2Helper {
         */
     }
 
+
+    /*
+    * 停止计时器，扫描停止时
+    * */
     public void stopTimer() {
         if (timer != null) {
             timer.cancel();
@@ -117,6 +138,9 @@ public class BLEMiBand2Helper {
         }
     }
 
+    /*
+    * 用于定时检查任务的class
+    * */
     private class myCheckoutTask extends TimerTask {
 
         @Override
@@ -161,6 +185,10 @@ public class BLEMiBand2Helper {
         }
     }
 
+    /*
+    * 在连接逻辑里，要求是过一段时间就要进行`ping`来继续激活当前的连接，
+    * 具体写入的信息看文档实际要求
+    * */
     public void pingCheck() throws InterruptedException {
         // char_ctrl.write(b'\x16', True)
         if (!isConnectedGatt || bluetoothGatt == null)
@@ -177,6 +205,9 @@ public class BLEMiBand2Helper {
 
     // setCharacticNo...会在读取数据后调用conCharacteristicRead方法
     //要注意的问题：https://blog.csdn.net/Tim3366/article/details/43965313
+    /*
+    * 回调函数，用于连接传输数据，相关的BLE的连接的回调。
+    * */
     private BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, final int newState) {
@@ -322,6 +353,9 @@ public class BLEMiBand2Helper {
         }
     };
 
+    /*
+    * 蓝牙扫描实际动作
+    * */
     public void search() throws InterruptedException {
 
         //http://a1anwang.com/post-37.html
@@ -337,6 +371,10 @@ public class BLEMiBand2Helper {
         }
     }
 
+
+    /*
+    * 写数据动作
+    * */
     public void DelayWriteData(UUID service, UUID characteristic, byte[] data, int delay) throws InterruptedException {
         if (!isConnectedGatt || bluetoothGatt == null) {
             return ;
@@ -361,6 +399,10 @@ public class BLEMiBand2Helper {
     };
     */
 
+
+    /*
+    * 扫描回调
+    * */
     public ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
@@ -469,6 +511,10 @@ public class BLEMiBand2Helper {
         }
     }
 
+
+    /*
+    * 和主Activity交互的接口，在MainActivity中实现
+    * */
     public interface BLEAction {
         void onScanning();
         void onDisconnected();
