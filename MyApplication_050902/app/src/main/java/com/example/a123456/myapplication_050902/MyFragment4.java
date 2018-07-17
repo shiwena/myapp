@@ -71,10 +71,6 @@ public class MyFragment4 extends Fragment {
         });
 
 
-
-
-
-
         shengao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,11 +78,6 @@ public class MyFragment4 extends Fragment {
 
             }
         });
-
-
-
-
-
 
 
         status.setOnClickListener(new View.OnClickListener() {
@@ -122,9 +113,9 @@ public class MyFragment4 extends Fragment {
                         String cache;
                         //输出缓存大小
                         try {
-                            cache = DataCleanManager.getTotalCacheSize(getContext());
+                            cache = DataCleanManager.getTotalCacheSize(getActivity());
                             Toast.makeText(getContext(),"缓存："+cache,Toast.LENGTH_LONG).show();
-                            DataCleanManager.clearAllCache(getContext());
+//                            DataCleanManager.clearAllCache(getContext());
                             //Log.i("111","缓存："+DataCleanManager.getTotalCacheSize(getContext()));
                         }catch (Exception e){
                             e.printStackTrace();
@@ -222,7 +213,7 @@ public class MyFragment4 extends Fragment {
                 final Dialog mLogoutDialog = new Dialog(getContext(), R.style.my_dialog);
                 LinearLayout root = (LinearLayout) LayoutInflater.from(getContext()).inflate(
                         R.layout.dialog_logout, null);
-                root.getBackground().setAlpha(100);
+                //root.getBackground().setAlpha(100);
 
                 mLogoutDialog.setContentView(root);
                 Window dialogWindow = mLogoutDialog.getWindow();
@@ -290,7 +281,10 @@ public class MyFragment4 extends Fragment {
     };
 
 
-
+    /**
+     * 修改身高
+     * @param height
+     */
     public void UpdateDB(final String height){
 
         if(height.length()>0) {
