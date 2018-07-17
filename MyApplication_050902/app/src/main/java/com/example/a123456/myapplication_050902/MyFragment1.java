@@ -476,11 +476,10 @@ public class MyFragment1 extends Fragment {
     public int InsertDate(final String xinlv, String tizhong, String xueya, String tiwen, String xuezhi) {
         try {
             if (xinlv.length() <= 0 || tizhong.length() <=0 ||xueya.length()<=0|| tiwen.length()<=0|| xuezhi.length()<=0) {
-                return 1;
+                return 0;
             } else {
                 Class.forName("com.mysql.jdbc.Driver");
                 java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8", "root", "SWsw1997");
-
                 String sqlbfat = "INSERT INTO userbloodfat VALUES('" + Userid + "','" + Testtime+ "','" + xz + "');";//插入血脂
                 String sqlbpress="INSERT INTO userbloodpress VALUES('" + Userid + "','" + Testtime+ "','" + xy[0]+ "','"+xy[1]+"');";//插入血压
                 String sqlheart = "INSERT INTO userheart VALUES('" + Userid + "','" + Testtime+ "','" + xl + "');";//插入心率
@@ -497,7 +496,7 @@ public class MyFragment1 extends Fragment {
                 cn.close();
                 st.close();
                 if(rs>0||rs1>0||rs2>0||rs3>0||rs4>0)
-                    return 2;
+                    return 1;
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
