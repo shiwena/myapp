@@ -78,7 +78,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if(mima.length()<6){
                     Toast.makeText(this,"密码不能少于6位",Toast.LENGTH_LONG).show();
                 }
-                if(zhanghao.length()>0&&mima.length()>=6) {
+               if(dianhua.length()!=0) if(dianhua.length()!=13) {
+                 Toast.makeText(this,"手机号必须为11位！",Toast.LENGTH_LONG).show();
+               }
+                if(shengao.equals("")){
+                    Toast.makeText(this,"身高不能为空！",Toast.LENGTH_LONG).show();
+                }
+                if(zhanghao.length()>0&&mima.length()>=6&&shengao.length()>=0) {
 
                     new Thread(new Runnable() {
                         @Override
@@ -177,7 +183,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
 
 
