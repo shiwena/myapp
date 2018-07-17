@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.sql.Connection;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -473,38 +474,37 @@ public class MyFragment1 extends Fragment {
 
 
     }
-    public int InsertDate(final String xinlv, String tizhong, String xueya, String tiwen, String xuezhi) {
-        try {
-            if (xinlv.length() <= 0 || tizhong.length() <=0 ||xueya.length()<=0|| tiwen.length()<=0|| xuezhi.length()<=0) {
-                return 0;
-            } else {
-                Class.forName("com.mysql.jdbc.Driver");
-                java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp?characterEncoding=utf8", "root", "SWsw1997");
-                String sqlbfat = "INSERT INTO userbloodfat VALUES('" + Userid + "','" + Testtime+ "','" + xz + "');";//插入血脂
-                String sqlbpress="INSERT INTO userbloodpress VALUES('" + Userid + "','" + Testtime+ "','" + xy[0]+ "','"+xy[1]+"');";//插入血压
-                String sqlheart = "INSERT INTO userheart VALUES('" + Userid + "','" + Testtime+ "','" + xl + "');";//插入心率
-                String sqltemp = "INSERT INTO usertemperature VALUES('" + Userid + "','" + Testtime+ "','" + tw + "');";//插入体温
-                String sqlweight="INSERT INTO userweight VALUES('" + Userid + "','" + Testtime+ "','" + tz+ "','"+BMI+"');";//插入体重和BMI
-                Statement st = (Statement) cn.createStatement();
+    public boolean InsertDate( int xinlv, int tizhong, int xueya, double tiwen, double xuezhi) {
 
-                int rs = st.executeUpdate(sqlbfat);
-                int rs1= st.executeUpdate(sqlweight);
-                int rs2=st.executeUpdate(sqlbpress);
-                int rs3= st.executeUpdate(sqltemp);
-                int rs4= st.executeUpdate(sqlbfat);
+            if (xinlv<= 0 ) return false;
+            else if( tizhong <=0 ) return false;
+            else if(xueya<=0)  return false;
+            else  if(tiwen<=0) return false;
+            else if ( xuezhi<=0.0)  return false;
+            date = new Date();//按下“分析建议”按钮的时间
+            Testtime = t.format(date);//date的String形式
+        //测试数据库链接是否成功
+//try{
+//    Class.forName("com.mysql.jdbc.Driver");//连接数据库
+//    java.sql.Connection cn = DriverManager.getConnection("jdbc:mysql://47.98.170.72:3306/myapp",
+//            "root", "SWsw1997");
+//
+//    if (cn) {
+//        return false;
+//    }
+//    if (cn){
+//        return true;
+//    }
+//
+//    cn.close();
+//
+//    } catch (ClassNotFoundException e) {
+//        e.printStackTrace();
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    }Looper.loop();
 
-                cn.close();
-                st.close();
-                if(rs>0||rs1>0||rs2>0||rs3>0||rs4>0)
-                    return 1;
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return 0;
-    }
+        return true;
+    }}
 
-}
