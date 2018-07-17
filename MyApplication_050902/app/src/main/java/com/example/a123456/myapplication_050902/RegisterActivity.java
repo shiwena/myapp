@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if(shengao.equals("")){
                     Toast.makeText(this,"身高不能为空！",Toast.LENGTH_LONG).show();
                 }
-                if(zhanghao.length()>0&&mima.length()>=6&&shengao.length()>=0) {
+                if(zhanghao.length()>0&&mima.length()>=6&&shengao.length()>0) {
 
                     new Thread(new Runnable() {
                         @Override
@@ -157,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public boolean register(final String zhanghao ,String mima) {
         try {
 
-            if (zhanghao.length() <= 0 && mima.length() < 6) {
+            if (zhanghao.length() <= 0 || mima.length() < 6) {
                 return false;
             } else {
                 Class.forName("com.mysql.jdbc.Driver");//连接数据库
